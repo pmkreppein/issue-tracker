@@ -1,1 +1,19 @@
 /* CSS declarations go here */
+.center-align {
+    text-align: center;
+}
+
+.issue-counts h3 {
+    display: inline;
+    margin-right: 1%;
+}
+
+.new-button {
+    margin-bottom: 2%;
+}
+
+@media (max-width: 900px) {
+    .issue-counts h3 {
+        display: block;
+    }
+}

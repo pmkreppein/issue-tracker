@@ -1,11 +1,124 @@
 <head>
   <title>Issue Tracker</title>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 </head>
 
 <body>
-  
-
-
+  <div class="container">
+  {{> MainTemplate}}
+</div>
 </body>
 
+<!--^^^Main Page Template^^^-->
 
+<template name="MainTemplate">
+  <div class="top-head">
+    {{> TopHead}}
+  </div>
+  
+  <div class="issue-overview">
+    {{> IssueOverview}}
+  </div>
+  
+  <div class="new-issue-form">
+    {{> NewIssueForm}}
+  </div>
+  
+  <div class="issues">
+    {{> Issues}}
+  </div>
+  
+   <div class="issue-overview">
+    {{> IssueOverview}}
+  </div>
+  
+  <div class="bottom-foot">
+    <!--{{> BottomFoot}}-->
+  </div>
+</template>
+
+<!--Sub Templates-->
+
+<template name="TopHead">
+ <div class="panel panel-default center-align">
+   <h4>Welcome to Issue Tracker!</h4>
+ </div>
+</template>
+
+
+<template name="IssueOverview">
+  <div class="panel panel-primary center-align">
+    <div class="panel-heading">
+      Current Status
+    </div>
+    
+    <div class="panel-body issue-counts">
+      <h3><span class="label label-danger">Critical Issues: {{criticalIssueNumber}}</span></h3>
+      <h3><span class="label label-warning">Medium Issues: {{mediumIssueNumber}}</span></h3>
+      <h3><span class="label label-success">Normal Issues: {{normalIssueNumber}}</span></h3>
+      <h3><span class="label label-info">Total Issues: {{totalIssueNumber}}</span></h3>
+    </div>
+  </div>
+</template>
+
+
+<!--New Issue Form-->
+
+<template name="NewIssueForm">
+  <div class="center-align new-button">
+    <a href="#issue-collapse" class="btn btn-info center-align" role="button" data-toggle="collapse" aria-expanded="false">Open New Issue</a>
+  </div>
+  <div class="collapse center" id="issue-collapse">
+    <div class="well">
+       
+      <form class="form-horizontal" id="NewIncidentForm">
+        <div class="form-group center-align">
+          <input type="text" class="form-control" placeholder="Issue Title" name="IssueTitle">
+          <p></p>
+          <textarea class="form-control" rows="3" name="IssueBody" placeholder="Issue Details"></textarea>
+          <br>
+          <p>Issue Priority (1 is highest priority).</p>
+          <select class="form-control" name="IssuePriority">
+        <option>3</option>
+        <option>2</option>
+        <option>1</option>
+          </select>
+          <br>
+          <input type="submit" value="Submit"/>
+        
+         </div>
+      </form>
+     
+    </div>
+  </div>
+</template>
+
+<!--Display Issues-->
+
+<template name="Issues">
+  {{#each issueList}}
+    <div>{{>IndividualIssue}}</div>
+  {{/each}}
+</template>
+
+<!--IndividualIssue-->
+
+<template name="IndividualIssue">
+  <div class="panel {{issueSeverityClass}}">
+      <div class="panel-heading">
+        <b>{{issueTitle}}</b> |  Priority: {{issueSeverity}}  |  Created At: {{issueDate}} | Resolved: {{resolutionStatus}} 
+      </div>
+      
+      <div class="panel-body">
+        {{issueBody}}
+      </div>
+      <div>
+       <p>Resolution: {{resolutionText}}</p> 
+      </div>
+      <div>
+        <button name="ResolveButton" type="button" class="btn btn-default">
+          Mark Issue Resolved
+        </button>
+      </div>    
+    </div>
+</template>
